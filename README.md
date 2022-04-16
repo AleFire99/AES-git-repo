@@ -5,4 +5,4 @@ Repo of AES T project
  - Stage
  - Comment
  - Commit
- - Push changesd back into repo
+ - Push changes back into repo
