@@ -158,9 +158,9 @@ equation
     Line(points = {{-379.5, 62}, {-192, 62}}, color = {0, 0, 127}));
   connect(sTz1.T, PI_z1.PV) annotation(
     Line(points = {{-108, 88}, {-254, 88}, {-254, 107}, {-210, 107}, {-210, 108}}, color = {0, 0, 127}));
-  connect(sp_Tz1.y[2], PI_z1.SP) annotation(
+  connect(sp_Tz1.y[1], PI_z1.SP) annotation(
     Line(points = {{-345, 118}, {-210, 118}}, color = {0, 0, 127}));
-  connect(sp_z2.y[2], PI_z2.SP) annotation(
+  connect(sp_z2.y[1], PI_z2.SP) annotation(
     Line(points = {{49, 40}, {75.5, 40}, {75.5, 60}, {106, 60}}, color = {0, 0, 127}));
   connect(PI_z1.CS, daisyChain_z1.CSi01) annotation(
     Line(points = {{-186, 112}, {-152, 112}}, color = {0, 0, 127}));
