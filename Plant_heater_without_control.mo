@@ -69,14 +69,14 @@ model Plant_heater_without_control
     Placement(visible = true, transformation(origin = {-356, 118}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Heater_T_ref(y = 45 + 273.15)  annotation(
     Placement(visible = true, transformation(origin = {-409, -96}, extent = {{-25, -18}, {25, 18}}, rotation = 180)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 400, CSmin = 0, K = 100)  annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 80000, CSmin = -80000, K = 100)  annotation(
     Placement(visible = true, transformation(origin = {-412, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 6 * 10 ^ 5, CSmin = 1, K = 100)  annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 6 * 10 ^ 5, CSmin = -6 * 10 ^ 5, K = 10000)  annotation(
     Placement(visible = true, transformation(origin = {-180, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Pressure_difference(y = 2 * 10 ^ 5)  annotation(
     Placement(visible = true, transformation(origin = {-407, 62}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable sp_z2(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, offset = {273.15}, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = [0, 7; 7, 7; 8, 20; 17, 20; 20, 14; 22, 10; 24, 10], timeScale = 3600) annotation(
-    Placement(visible = true, transformation(origin = {38, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {40, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z1(CSmax = 273.15 + 100, CSmin = 0)  annotation(
     Placement(visible = true, transformation(origin = {-198, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z2(CSmax = 273.15 + 50, CSmin = 0)  annotation(
@@ -152,8 +152,6 @@ equation
     Line(points = {{210, 108}, {210, 90}, {238, 90}}, color = {191, 0, 0}));
   connect(Tamb.y[1], pTa.T) annotation(
     Line(points = {{-301, 148}, {-202, 148}}, color = {0, 0, 127}));
-  connect(PI_Pressure.CS, pump.cmd) annotation(
-    Line(points = {{-168, 56}, {-168, 17.5}, {-222, 17.5}, {-222, 6}}, color = {0, 0, 127}));
   connect(Pressure_difference.y, PI_Pressure.SP) annotation(
     Line(points = {{-379.5, 62}, {-192, 62}}, color = {0, 0, 127}));
   connect(sTz1.T, PI_z1.PV) annotation(
@@ -161,27 +159,29 @@ equation
   connect(sp_Tz1.y[1], PI_z1.SP) annotation(
     Line(points = {{-345, 118}, {-210, 118}}, color = {0, 0, 127}));
   connect(sp_z2.y[1], PI_z2.SP) annotation(
-    Line(points = {{49, 40}, {75.5, 40}, {75.5, 60}, {106, 60}}, color = {0, 0, 127}));
+    Line(points = {{51, 60}, {106, 60}}, color = {0, 0, 127}));
   connect(PI_z1.CS, daisyChain_z1.CSi01) annotation(
     Line(points = {{-186, 112}, {-152, 112}}, color = {0, 0, 127}));
-  connect(daisyChain_z1.CSo01[2], vh1.x) annotation(
-    Line(points = {{-128, 112}, {-56, 112}, {-56, 28}}, color = {0, 0, 127}));
   connect(PI_z2.CS, daisyChain_z2.CSi01) annotation(
     Line(points = {{130, 54}, {130, 13}, {148, 13}, {148, 14}}, color = {0, 0, 127}));
-  connect(daisyChain_z2.CSo01[1], Psupz2.u) annotation(
-    Line(points = {{172, 14}, {172, 25.5}, {178, 25.5}, {178, 41}}, color = {0, 0, 127}));
   connect(daisyChain_z2.CSo01[2], vh2.x) annotation(
     Line(points = {{172, 14}, {172, 21}, {188, 21}, {188, 28}}, color = {0, 0, 127}));
   connect(PI_Pressure.PV, sDp.oDp) annotation(
     Line(points = {{-192, 52}, {-240, 52}, {-240, -36}}, color = {0, 0, 127}));
-  connect(daisyChain_z1.CSo01[1], Psupz1.u) annotation(
-    Line(points = {{-128, 112}, {-113.5, 112}, {-113.5, 96}, {-113, 96}, {-113, 8}, {-66, 8}, {-66, 40}}, color = {0, 0, 127}));
   connect(sTz2.T, PI_z2.PV) annotation(
     Line(points = {{94, 90}, {94, 49}, {106, 49}, {106, 50}}, color = {0, 0, 127}));
   connect(sTh.oT, PI_Heater.PV) annotation(
     Line(points = {{-362, -2}, {-456, -2}, {-456, -42}, {-424, -42}}, color = {0, 0, 127}));
   connect(Heater_T_ref.y, PI_Heater.SP) annotation(
     Line(points = {{-436.5, -96}, {-461.75, -96}, {-461.75, -32}, {-424, -32}}, color = {0, 0, 127}));
+  connect(daisyChain_z2.CSo01[1], Psupz2.u) annotation(
+    Line(points = {{172, 14}, {172, 25.5}, {178, 25.5}, {178, 41}}, color = {0, 0, 127}));
+  connect(daisyChain_z1.CSo01[2], vh1.x) annotation(
+    Line(points = {{-128, 112}, {-56, 112}, {-56, 28}}, color = {0, 0, 127}));
+  connect(daisyChain_z1.CSo01[1], Psupz1.u) annotation(
+    Line(points = {{-128, 112}, {-113.5, 112}, {-113.5, 96}, {-113, 96}, {-113, 8}, {-66, 8}, {-66, 40}}, color = {0, 0, 127}));
+  connect(PI_Pressure.CS, pump.cmd) annotation(
+    Line(points = {{-168, 56}, {-168, 17.5}, {-222, 17.5}, {-222, 6}}, color = {0, 0, 127}));
   connect(PI_Heater.CS, Qheat.Q) annotation(
     Line(points = {{-400, -38}, {-383, -38}, {-383, -30}, {-374, -30}}, color = {0, 0, 127}));
   annotation(
