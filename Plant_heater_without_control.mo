@@ -71,7 +71,7 @@ model Plant_heater_without_control
     Placement(visible = true, transformation(origin = {-409, -96}, extent = {{-25, -18}, {25, 18}}, rotation = 180)));
   AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 80000, CSmin = -80000, K = 100)  annotation(
     Placement(visible = true, transformation(origin = {-412, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 6 * 10 ^ 5, CSmin = -6 * 10 ^ 5, K = 10000)  annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 6 * 10 ^ 5, CSmin = -6 * 10 ^ 5, K = 100)  annotation(
     Placement(visible = true, transformation(origin = {-180, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Pressure_difference(y = 2 * 10 ^ 5)  annotation(
     Placement(visible = true, transformation(origin = {-407, 62}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
