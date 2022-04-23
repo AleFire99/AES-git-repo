@@ -1,9 +1,16 @@
 # AES-git-repo
 Repo of AES T project
- - Pull the files from the online repo into a local one (use sourcetree to do so, github account mandatory)
- - Create a folder with the name "AES_project_2021_2022" and put into this folder the files
+
+♦ First time
+ - Clone the repo into a local folder named "AES_project_2021_2022"
+ - Make sure the name is right otherwise it won't work
+ - Also download the prof library somewhere on PC
+♦ Every time
+ - Pull the latest version of the repo from SourceTree or equivalent
+ - Launch the model by opening the "package.mo" file
+ - Load the prof library inside modelica
  - Work on model
  - Stage
  - Comment
  - Commit
- - Push changesd back into repost
+ - Push changes back into repo
