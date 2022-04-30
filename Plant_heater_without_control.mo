@@ -16,7 +16,7 @@ model Plant_heater_without_control
   AES.ProcessComponents.Thermal.Liquid.Tube tubec2(L = 50) annotation(
     Placement(visible = true, transformation(origin = {-178, -68}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   AES.ProcessComponents.Thermal.Liquid.Valve_linear vh1(dpnom = 300000, wnom = 0.2) annotation(
-    Placement(visible = true, transformation(origin = {-46, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-48, 26}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   AES.ProcessComponents.Thermal.Liquid.Valve_linear vh2(dpnom = 300000, wnom = 2.2) annotation(
     Placement(visible = true, transformation(origin = {198, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   AES.ProcessComponents.Thermal.Liquid.Tube h1(Di = 0.02, L = 5) annotation(
@@ -38,13 +38,13 @@ model Plant_heater_without_control
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor Cz1(C = 1e4, T(displayUnit = "K")) annotation(
     Placement(visible = true, transformation(origin = {4, 88}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor sTz1 annotation(
-    Placement(visible = true, transformation(origin = {-98, 88}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-100, 88}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor Gloss1(G = 80) annotation(
     Placement(visible = true, transformation(origin = {-26, 118}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Hsupz1 annotation(
     Placement(visible = true, transformation(origin = {-66, 68}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Gain Psupz1(k = 500) annotation(
-    Placement(visible = true, transformation(origin = {-64, 46}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-66, 46}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature pTa annotation(
     Placement(visible = true, transformation(origin = {-190, 148}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ProcessComponents.Thermal.Liquid.VectorHPtoHP_conductor convz1 annotation(
@@ -69,37 +69,35 @@ model Plant_heater_without_control
     Placement(visible = true, transformation(origin = {-356, 118}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Heater_T_ref(y = 45 + 273.15)  annotation(
     Placement(visible = true, transformation(origin = {-409, -96}, extent = {{-25, -18}, {25, 18}}, rotation = 180)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 80000, CSmin = -80000, K = 100)  annotation(
-    Placement(visible = true, transformation(origin = {-412, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 6 * 10 ^ 5, CSmin = 0, K = 10000)  annotation(
-    Placement(visible = true, transformation(origin = {-180, 56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 1, CSmin = 0, K = 100)  annotation(
+    Placement(visible = true, transformation(origin = {-436, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 1, CSmin = 0, K = 10000)  annotation(
+    Placement(visible = true, transformation(origin = {-218, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Pressure_difference(y = 2 * 10 ^ 5)  annotation(
     Placement(visible = true, transformation(origin = {-407, 62}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable sp_z2(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, offset = {273.15}, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = [0, 7; 7, 7; 8, 20; 17, 20; 20, 14; 22, 10; 24, 10], timeScale = 3600) annotation(
     Placement(visible = true, transformation(origin = {40, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z2(CSmax = 273.15 + 50, CSmin = 0)  annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z2(CSmax = 2, CSmin = 0)  annotation(
     Placement(visible = true, transformation(origin = {118, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ControlBlocks.ActuationSchemes.DaisyChain_uniform daisyChain_z2 annotation(
     Placement(visible = true, transformation(origin = {160, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = -9.9812)  annotation(
-    Placement(visible = true, transformation(origin = {-118, 26}, extent = {{8, 8}, {-8, -8}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {-130, 28}, extent = {{8, 8}, {-8, -8}}, rotation = 180)));
   Modelica.Blocks.Math.Gain gain2(k = -0.0012) annotation(
-    Placement(visible = true, transformation(origin = {-93, 47}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  Modelica.Blocks.Math.Add ad annotation(
-    Placement(visible = true, transformation(origin = {70, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add annotation(
-    Placement(visible = true, transformation(origin = {70, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add1 annotation(
-    Placement(visible = true, transformation(origin = {72, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-133, 57}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
-    Placement(visible = true, transformation(origin = {-210, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-104, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain(k = 10000) annotation(
+    Placement(visible = true, transformation(origin = {-396, -30}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  Modelica.Blocks.Math.Add add3 annotation(
+    Placement(visible = true, transformation(origin = {-90, 22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(pump.pwh_b, tubeh1.pwh_a) annotation(
     Line(points = {{-210, -2}, {-190, -2}}, color = {46, 52, 54}));
   connect(tubeh1.pwh_b, vh1.pwh_a) annotation(
-    Line(points = {{-166, -2}, {-46, -2}, {-46, 16}}, color = {46, 52, 54}));
+    Line(points = {{-166, -2}, {-48, -2}, {-48, 14}}, color = {46, 52, 54}));
   connect(vh1.pwh_b, h1.pwh_a) annotation(
-    Line(points = {{-46, 40}, {-46, 48}, {-38, 48}}, color = {46, 52, 54}));
+    Line(points = {{-48, 38}, {-48, 48}, {-38, 48}}, color = {46, 52, 54}));
   connect(h1.pwh_b, tubec2.pwh_a) annotation(
     Line(points = {{-14, 48}, {-2, 48}, {-2, -68}, {-166, -68}}, color = {46, 52, 54}));
   connect(tubeh1.pwh_b, tubeh2.pwh_a) annotation(
@@ -133,7 +131,7 @@ equation
   connect(Cz1.port, Gloss1.port_b) annotation(
     Line(points = {{-16, 88}, {-26, 88}, {-26, 108}}, color = {191, 0, 0}));
   connect(Psupz1.y, Hsupz1.Q_flow) annotation(
-    Line(points = {{-60, 46}, {-60, 53.2}, {-66, 53.2}, {-66, 58.4}}, color = {0, 0, 127}));
+    Line(points = {{-62, 46}, {-62, 52.2}, {-66, 52.2}, {-66, 58.4}}, color = {0, 0, 127}));
   connect(Cz1.port, Hsupz1.port) annotation(
     Line(points = {{-16, 88}, {-66, 88}, {-66, 78}}, color = {191, 0, 0}));
   connect(pTa.port, Gloss1.port_a) annotation(
@@ -143,7 +141,7 @@ equation
   connect(convz1.vectorHP, h1.surf) annotation(
     Line(points = {{-26, 64}, {-26, 54}}, color = {144, 5, 5}));
   connect(sTz1.port, Cz1.port) annotation(
-    Line(points = {{-88, 88}, {-16, 88}}, color = {191, 0, 0}));
+    Line(points = {{-90, 88}, {-16, 88}}, color = {191, 0, 0}));
   connect(Psupz2.y, Hsupz2.Q_flow) annotation(
     Line(points = {{178, 50}, {178, 54}, {170, 54}, {170, 60}}, color = {0, 0, 127}));
   connect(h2.surf, convz2.vectorHP) annotation(
@@ -161,7 +159,7 @@ equation
   connect(Tamb.y[1], pTa.T) annotation(
     Line(points = {{-301, 148}, {-202, 148}}, color = {0, 0, 127}));
   connect(Pressure_difference.y, PI_Pressure.SP) annotation(
-    Line(points = {{-379.5, 62}, {-192, 62}}, color = {0, 0, 127}));
+    Line(points = {{-379.5, 62}, {-285.75, 62}, {-285.75, 60}, {-230, 60}}, color = {0, 0, 127}));
   connect(sp_z2.y[1], PI_z2.SP) annotation(
     Line(points = {{51, 60}, {106, 60}}, color = {0, 0, 127}));
   connect(PI_z2.CS, daisyChain_z2.CSi01) annotation(
@@ -169,31 +167,37 @@ equation
   connect(daisyChain_z2.CSo01[2], vh2.x) annotation(
     Line(points = {{172, 14}, {172, 21}, {188, 21}, {188, 28}}, color = {0, 0, 127}));
   connect(PI_Pressure.PV, sDp.oDp) annotation(
-    Line(points = {{-192, 52}, {-240, 52}, {-240, -36}}, color = {0, 0, 127}));
+    Line(points = {{-230, 50}, {-230, 6}, {-240, 6}, {-240, -36}}, color = {0, 0, 127}));
   connect(sTz2.T, PI_z2.PV) annotation(
     Line(points = {{94, 90}, {94, 49}, {106, 49}, {106, 50}}, color = {0, 0, 127}));
   connect(sTh.oT, PI_Heater.PV) annotation(
-    Line(points = {{-362, -2}, {-456, -2}, {-456, -42}, {-424, -42}}, color = {0, 0, 127}));
+    Line(points = {{-362, -2}, {-456, -2}, {-456, -36}, {-448, -36}}, color = {0, 0, 127}));
   connect(Heater_T_ref.y, PI_Heater.SP) annotation(
-    Line(points = {{-436.5, -96}, {-461.75, -96}, {-461.75, -32}, {-424, -32}}, color = {0, 0, 127}));
+    Line(points = {{-436.5, -96}, {-461.75, -96}, {-461.75, -26}, {-448, -26}}, color = {0, 0, 127}));
   connect(daisyChain_z2.CSo01[1], Psupz2.u) annotation(
     Line(points = {{172, 14}, {172, 25.5}, {178, 25.5}, {178, 41}}, color = {0, 0, 127}));
   connect(PI_Pressure.CS, pump.cmd) annotation(
-    Line(points = {{-168, 56}, {-168, 17.5}, {-222, 17.5}, {-222, 6}}, color = {0, 0, 127}));
-  connect(PI_Heater.CS, Qheat.Q) annotation(
-    Line(points = {{-400, -38}, {-383, -38}, {-383, -30}, {-374, -30}}, color = {0, 0, 127}));
-  connect(gain1.y, vh1.x) annotation(
-    Line(points = {{-109, 26}, {-66.5, 26}, {-66.5, 28}, {-56, 28}}, color = {0, 0, 127}));
-  connect(gain2.y, Psupz1.u) annotation(
-    Line(points = {{-83, 47}, {-86, 47}, {-86, 46}, {-68, 46}}, color = {0, 0, 127}));
-  connect(sp_Tz1.y, add2.u1) annotation(
-    Line(points = {{-344, 118}, {-222, 118}, {-222, 116}}, color = {0, 0, 127}));
-  connect(sTz1.T, add2.u2) annotation(
-    Line(points = {{-108, 88}, {-222, 88}, {-222, 104}}, color = {0, 0, 127}));
-  connect(add2.y, gain2.u) annotation(
-    Line(points = {{-198, 110}, {-128, 110}, {-128, 48}, {-104, 48}}, color = {0, 0, 127}));
-  connect(add2.y, gain1.u) annotation(
-    Line(points = {{-198, 110}, {-128, 110}, {-128, 26}}, color = {0, 0, 127}));
+    Line(points = {{-206, 54}, {-206, 29}, {-222, 29}, {-222, 6}}, color = {0, 0, 127}));
+  connect(PI_Heater.CS, gain.u) annotation(
+    Line(points = {{-424, -32}, {-413.5, -32}, {-413.5, -30}, {-403, -30}}, color = {0, 0, 127}));
+  connect(gain.y, Qheat.Q) annotation(
+    Line(points = {{-390, -30}, {-374, -30}}, color = {0, 0, 127}));
+  connect(add2.y, Psupz1.u) annotation(
+    Line(points = {{-93, 50}, {-82, 50}, {-82, 46}, {-70, 46}}, color = {0, 0, 127}));
+  connect(sTz1.T, gain2.u) annotation(
+    Line(points = {{-110, 88}, {-160, 88}, {-160, 57}, {-144, 57}}, color = {0, 0, 127}));
+  connect(gain2.y, add2.u1) annotation(
+    Line(points = {{-123, 57}, {-120, 57}, {-120, 56}, {-116, 56}}, color = {0, 0, 127}));
+  connect(sp_Tz1.y[1], add2.u2) annotation(
+    Line(points = {{-344, 118}, {-174, 118}, {-174, 44}, {-116, 44}}, color = {0, 0, 127}));
+  connect(add3.y, vh1.x) annotation(
+    Line(points = {{-78, 22}, {-72, 22}, {-72, 26}, {-58, 26}}, color = {0, 0, 127}));
+  connect(gain1.y, add3.u1) annotation(
+    Line(points = {{-122, 28}, {-102, 28}}, color = {0, 0, 127}));
+  connect(sTz1.T, gain1.u) annotation(
+    Line(points = {{-110, 88}, {-160, 88}, {-160, 28}, {-140, 28}}, color = {0, 0, 127}));
+  connect(sp_Tz1.y[1], add3.u2) annotation(
+    Line(points = {{-344, 118}, {-174, 118}, {-174, 16}, {-102, 16}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-500, -200}, {500, 200}})),
     experiment(StartTime = 0, StopTime = 864000, Tolerance = 1e-6, Interval = 86.4),
