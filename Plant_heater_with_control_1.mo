@@ -69,10 +69,8 @@ model Plant_heater_with_control_1
     Placement(visible = true, transformation(origin = {-168, 116}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 1, CSmin = 0, K = 100)  annotation(
     Placement(visible = true, transformation(origin = {8, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression Pressure_difference(y = 2 * 10 ^ 5)  annotation(
+  Modelica.Blocks.Sources.RealExpression Pressure_difference(y = 2.027 * 10 ^ 5)  annotation(
     Placement(visible = true, transformation(origin = {-219, 60}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z1(CSmax = 1, CSmin = 0)  annotation(
-    Placement(visible = true, transformation(origin = {-10, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z2(CSmax = 1, CSmin = 0)  annotation(
     Placement(visible = true, transformation(origin = {306, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ControlBlocks.ActuationSchemes.DaisyChain_uniform daisyChain_z1 annotation(
@@ -91,8 +89,13 @@ model Plant_heater_with_control_1
     Placement(visible = true, transformation(origin = {-401, 138}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
  Modelica.Blocks.Continuous.Integrator E_loss(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false)  annotation(
     Placement(visible = true, transformation(origin = {-300, 138}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+<<<<<<< HEAD
+ AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z1(CSmax = 1, CSmin = 0) annotation(
+    Placement(visible = true, transformation(origin = {-10, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+=======
  Modelica.Blocks.Sources.RealExpression realExpression(y = 1) annotation(
     Placement(visible = true, transformation(origin = {80, 26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+>>>>>>> origin/main
 equation
   connect(pump.pwh_b, tubeh1.pwh_a) annotation(
     Line(points = {{-22, -4}, {-2, -4}}, color = {46, 52, 54}));
@@ -160,10 +163,6 @@ equation
     Line(points = {{398, 106}, {398, 88}, {426, 88}}, color = {191, 0, 0}));
   connect(Pressure_difference.y, PI_Pressure.SP) annotation(
     Line(points = {{-191.5, 60}, {-4, 60}}, color = {0, 0, 127}));
-  connect(sTz1.T, PI_z1.PV) annotation(
-    Line(points = {{80, 86}, {-66, 86}, {-66, 105}, {-22, 105}, {-22, 106}}, color = {0, 0, 127}));
-  connect(PI_z1.CS, daisyChain_z1.CSi01) annotation(
-    Line(points = {{2, 110}, {36, 110}}, color = {0, 0, 127}));
   connect(PI_z2.CS, daisyChain_z2.CSi01) annotation(
     Line(points = {{318, 52}, {318, 11}, {336, 11}, {336, 12}}, color = {0, 0, 127}));
   connect(daisyChain_z2.CSo01[2], vh2.x) annotation(
@@ -176,14 +175,39 @@ equation
     Line(points = {{360, 12}, {360, 23.5}, {366, 23.5}, {366, 39}}, color = {0, 0, 127}));
   connect(PI_Pressure.CS, pump.cmd) annotation(
     Line(points = {{20, 54}, {20, 15.5}, {-34, 15.5}, {-34, 4}}, color = {0, 0, 127}));
+<<<<<<< HEAD
+  connect(gain.y, Qheat.Q) annotation(
+    Line(points = {{-220, -40}, {-187.6, -40}}, color = {0, 0, 127}));
+=======
  connect(gain.y, Qheat.Q) annotation(
     Line(points = {{-220, -40}, {-187.6, -40}}, color = {0, 0, 127}));
   connect(sp_Tz.y[1], PI_z1.SP) annotation(
     Line(points = {{-157, 116}, {-22, 116}}, color = {0, 0, 127}));
+>>>>>>> origin/main
   connect(sp_Tz.y[1], PI_z2.SP) annotation(
     Line(points = {{-157, 116}, {-65, 116}, {-65, 180}, {245, 180}, {245, 58}, {293, 58}}, color = {0, 0, 127}));
   connect(Tamb.y[1], pTa.T) annotation(
     Line(points = {{-113, 146}, {-14, 146}}, color = {0, 0, 127}));
+<<<<<<< HEAD
+  connect(Heater_T_Max.y, PI_Heater.SP) annotation(
+    Line(points = {{-415.5, -34}, {-324, -34}}, color = {0, 0, 127}));
+  connect(P_Loss.y, E_loss.u) annotation(
+    Line(points = {{-380.1, 138}, {-313.1, 138}}, color = {0, 0, 127}));
+  connect(PI_Heater.CS, gain.u) annotation(
+    Line(points = {{-300, -40}, {-229, -40}}, color = {0, 0, 127}));
+  connect(sTh.oT, PI_Heater.PV) annotation(
+    Line(points = {{-174, -4}, {-394, -4}, {-394, -44}, {-324, -44}}, color = {0, 0, 127}));
+  connect(sp_Tz.y[1], PI_z1.SP) annotation(
+    Line(points = {{-157, 116}, {-22, 116}}, color = {0, 0, 127}));
+  connect(PI_z1.CS, daisyChain_z1.CSi01) annotation(
+    Line(points = {{2, 110}, {36, 110}}, color = {0, 0, 127}));
+  connect(sTz1.T, PI_z1.PV) annotation(
+    Line(points = {{80, 86}, {-66, 86}, {-66, 105}, {-22, 105}, {-22, 106}}, color = {0, 0, 127}));
+  connect(daisyChain_z1.CSo01[1], vh1.x) annotation(
+    Line(points = {{60, 110}, {72, 110}, {72, 120}, {132, 120}, {132, 26}}, color = {0, 0, 127}));
+  connect(daisyChain_z1.CSo01[2], Psupz1.u) annotation(
+    Line(points = {{60, 110}, {122, 110}, {122, 38}}, color = {0, 0, 127}));
+=======
  connect(Heater_T_Max.y, PI_Heater.SP) annotation(
     Line(points = {{-415.5, -34}, {-324, -34}}, color = {0, 0, 127}));
   connect(P_Loss.y, E_loss.u) annotation(
@@ -196,6 +220,7 @@ equation
     Line(points = {{-300, -40}, {-229, -40}}, color = {0, 0, 127}));
  connect(sTh.oT, PI_Heater.PV) annotation(
     Line(points = {{-174, -4}, {-394, -4}, {-394, -44}, {-324, -44}}, color = {0, 0, 127}));
+>>>>>>> origin/main
   annotation(
     Diagram(coordinateSystem(extent = {{-500, -200}, {500, 200}})),
     experiment(StartTime = 0, StopTime = 864000, Tolerance = 1e-6, Interval = 86.4),
