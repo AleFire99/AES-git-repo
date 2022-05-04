@@ -65,7 +65,7 @@ model Plant_heater_with_control_1_LQ
     Placement(visible = true, transformation(origin = {358, 54}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
   inner AES.ProcessComponents.Thermal.System_settings.System_liquid system annotation(
     Placement(visible = true, transformation(origin = {-182, 148}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 1, CSmin = 0, K = 100)  annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 1, CSmin = 0, K = 0.001, Ti = 1000)  annotation(
     Placement(visible = true, transformation(origin = {-36, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Pressure_difference(y = 2.027 * 10 ^ 5)  annotation(
     Placement(visible = true, transformation(origin = {-219, 60}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
