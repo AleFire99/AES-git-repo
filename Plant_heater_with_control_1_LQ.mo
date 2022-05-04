@@ -93,11 +93,11 @@ model Plant_heater_with_control_1_LQ
     Placement(visible = true, transformation(origin = {258, 26}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
  Modelica.Blocks.Continuous.Integrator integrator_z1 annotation(
     Placement(visible = true, transformation(origin = {16, 24}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
- Modelica.Blocks.Math.MatrixGain matrixGain_z2(K = [-102.2973, 99.9993; -0.0120, 0.0117]) annotation(
+ Modelica.Blocks.Math.MatrixGain matrixGain_z2(K = [-0.03, 316.2275; -0.000001, 0.0037]) annotation(
     Placement(visible = true, transformation(origin = {320, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
  Modelica.Blocks.Routing.Multiplex2 mux_z2 annotation(
     Placement(visible = true, transformation(origin = {288, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
- Modelica.Blocks.Math.MatrixGain matrixGain_z1(K = [-102.2973, 99.9993; -0.0120, 0.0117]) annotation(
+ Modelica.Blocks.Math.MatrixGain matrixGain_z1(K = -10 ^ 3 * [1.0022, -1; 0.0001, -0.0001])  annotation(
     Placement(visible = true, transformation(origin = {84, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
  Modelica.Blocks.Routing.Multiplex2 mux_z1 annotation(
     Placement(visible = true, transformation(origin = {54, 42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
