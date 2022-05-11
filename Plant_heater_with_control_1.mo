@@ -70,9 +70,9 @@ model Plant_heater_with_control_1
     Placement(visible = true, transformation(origin = {6, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Pressure_difference(y = 2.027 * 10 ^ 5) annotation(
     Placement(visible = true, transformation(origin = {-219, 60}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z1(CSmax = 1, CSmin = 0, K = 0.07692, Ti = 76.92) annotation(
-    Placement(visible = true, transformation(origin = {-10, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z2(CSmax = 1, CSmin = 0, K = 0.3846, Ti = 76.92) annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z1(CSmax = 1, CSmin = 0, K = 3.808296, Ti = 76.9231) annotation(
+    Placement(visible = true, transformation(origin = {-8, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z2(CSmax = 1, CSmin = 0, K = 19.0415, Ti = 76.92) annotation(
     Placement(visible = true, transformation(origin = {304, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ControlBlocks.ActuationSchemes.DaisyChain_uniform daisyChain_z1 annotation(
     Placement(visible = true, transformation(origin = {48, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -158,9 +158,9 @@ equation
   connect(Pressure_difference.y, PI_Pressure.SP) annotation(
     Line(points = {{-191.5, 60}, {-6, 60}}, color = {0, 0, 127}));
   connect(sTz1.T, PI_z1.PV) annotation(
-    Line(points = {{80, 86}, {-66, 86}, {-66, 105}, {-22, 105}, {-22, 106}}, color = {0, 0, 127}));
+    Line(points = {{80, 86}, {-66, 86}, {-66, 105}, {-20, 105}, {-20, 106}}, color = {0, 0, 127}));
   connect(PI_z1.CS, daisyChain_z1.CSi01) annotation(
-    Line(points = {{2, 110}, {36, 110}}, color = {0, 0, 127}));
+    Line(points = {{4, 110}, {36, 110}}, color = {0, 0, 127}));
   connect(PI_z2.CS, daisyChain_z2.CSi01) annotation(
     Line(points = {{316, 52}, {316, 11}, {336, 11}, {336, 12}}, color = {0, 0, 127}));
   connect(daisyChain_z2.CSo01[2], vh2.x) annotation(
@@ -176,7 +176,7 @@ equation
   connect(gain.y, Qheat.Q) annotation(
     Line(points = {{-220, -40}, {-187.6, -40}}, color = {0, 0, 127}));
   connect(sp_Tz.y[1], PI_z1.SP) annotation(
-    Line(points = {{-157, 116}, {-22, 116}}, color = {0, 0, 127}));
+    Line(points = {{-157, 116}, {-20, 116}}, color = {0, 0, 127}));
   connect(sp_Tz.y[1], PI_z2.SP) annotation(
     Line(points = {{-157, 116}, {-65, 116}, {-65, 180}, {245, 180}, {245, 58}, {292, 58}}, color = {0, 0, 127}));
   connect(Tamb.y[1], pTa.T) annotation(
