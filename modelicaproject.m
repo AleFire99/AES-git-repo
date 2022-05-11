@@ -6,4 +6,25 @@ D=0
 Q=1
 R=[0.01,0;0,10]
 [K,P,aut]=lqr(A,B,Q,R)
-
+%% calcolo coefficente di scambio convettivo
+ro=1000 %[kg/m^3] densità acqua
+cp=4186 %[J/kg*K] calore specifico acqua
+lambda=0.55 %[W/m*K] conducibilità termica acqua
+mu=8.9e-4 %[Pa*s] viscosità
+m=0.5 %[kg/s] nominal flowrate
+d1=0.02 %[m] diametro del primo tubo
+d2=0.05 %[m] diametro del secondo tubo
+L=5
+A1=pi*d1*L
+A2=pi*d2*L
+v1=4*m/(ro*pi*d1^2)
+v2=4*m/(ro*pi*d2^2)
+Pr=mu*cp/lambda
+Re1=ro*v1*d1/mu
+Re2=ro*v2*d2/mu
+Nu1=0.023*(Re1^0.8)*(Pr^0.3)
+Nu2=0.023*(Re2^0.8)*(Pr^0.3)
+h1=Nu1*lambda/d1
+h2=Nu2*lambda/d2
+Q1=h1*A1
+Q2=h2*A2
