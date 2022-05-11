@@ -11,5 +11,5 @@ Real gg:=hour/24;
 Real hourloc:=hour-gg*24;
 
 algorithm
-    if (hourloc<=8 and hourloc>=22) then R:=0; end if;
+    if (hourloc<=8 and hourloc>=22) then R:=0; else R:=1; end if;
 end NotteGiorno;
