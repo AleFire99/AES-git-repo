@@ -81,7 +81,7 @@ model Plant_heater_with_control_1
   Modelica.Blocks.Math.Gain gain(k = 10000) annotation(
     Placement(visible = true, transformation(origin = {-224, -40}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable Tamb(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, offset = {273.15}, smoothness = Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table = [0, 0; 4, -2; 8, 8; 12, 10; 15, 10; 18, 3; 20, 1; 22, 0; 24, 0], timeScale = 3600) annotation(
-    Placement(visible = true, transformation(origin = {-124, 146}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-224, 174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 1, CSmin = 0, K = 0.6849, Ti = 39.2699) annotation(
     Placement(visible = true, transformation(origin = {-310, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Heater_T_Max(y = 40 + 273.15) annotation(
@@ -179,8 +179,6 @@ equation
     Line(points = {{-157, 116}, {-20, 116}}, color = {0, 0, 127}));
   connect(sp_Tz.y[1], PI_z2.SP) annotation(
     Line(points = {{-157, 116}, {-65, 116}, {-65, 180}, {245, 180}, {245, 58}, {292, 58}}, color = {0, 0, 127}));
-  connect(Tamb.y[1], pTa.T) annotation(
-    Line(points = {{-113, 146}, {-14, 146}}, color = {0, 0, 127}));
   connect(Heater_T_Max.y, PI_Heater.SP) annotation(
     Line(points = {{-415.5, -34}, {-322, -34}}, color = {0, 0, 127}));
   connect(P_Loss.y, E_loss.u) annotation(
@@ -193,6 +191,8 @@ equation
     Line(points = {{60, 110}, {74, 110}, {74, 26}, {132, 26}}, color = {0, 0, 127}));
   connect(daisyChain_z1.CSo01[2], Psupz1.u) annotation(
     Line(points = {{60, 110}, {74, 110}, {74, 40}, {113, 40}}, color = {0, 0, 127}));
+  connect(Tamb.y[1], pTa.T) annotation(
+    Line(points = {{-212, 174}, {-18, 174}, {-18, 146}, {-14, 146}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-500, -200}, {500, 200}})),
     experiment(StartTime = 0, StopTime = 864000, Tolerance = 1e-6, Interval = 86.4),
