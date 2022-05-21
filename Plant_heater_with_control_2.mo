@@ -88,8 +88,6 @@ model Plant_heater_with_control_2
     Placement(visible = true, transformation(origin = {-401, 138}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator E_loss(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false) annotation(
     Placement(visible = true, transformation(origin = {-300, 138}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 1, CSmin = 0, K = 0.001, Ti = 1000) annotation(
-    Placement(visible = true, transformation(origin = {-113, -1}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
   AES.ControlBlocks.AnalogueControllers.PI_awfb_basic night_PI_z2(CSmax = 10, CSmin = 0, K = 0.07692, Ti = 100) annotation(
     Placement(visible = true, transformation(origin = {268, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression LO_limit(y = 5 + 273.15) annotation(
@@ -112,6 +110,8 @@ model Plant_heater_with_control_2
     Placement(visible = true, transformation(origin = {394, 134}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpression1(y = 0) annotation(
     Placement(visible = true, transformation(origin = {349, 126}, extent = {{-7, -6}, {7, 6}}, rotation = 0)));
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 1, CSmin = 0, K = 0.001, Ti = 500) annotation(
+    Placement(visible = true, transformation(origin = {-113, -1}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
 equation
   connect(pump.pwh_b, tubeh1.pwh_a) annotation(
     Line(points = {{-20, -30}, {6, -30}}, color = {46, 52, 54}));
@@ -191,8 +191,6 @@ equation
     Line(points = {{-300, -40}, {-265, -40}}, color = {0, 0, 127}));
   connect(sTh.oT, PI_Heater.PV) annotation(
     Line(points = {{-182, -30}, {-394, -30}, {-394, -44}, {-324, -44}}, color = {0, 0, 127}));
-  connect(PI_Pressure.CS, pump.cmd) annotation(
-    Line(points = {{-100, -1}, {-100, 0}, {-32, 0}, {-32, -22}}, color = {0, 0, 127}));
   connect(sTz2.T, night_PI_z2.PV) annotation(
     Line(points = {{364, 102}, {234, 102}, {234, 10}, {256, 10}}, color = {0, 0, 127}));
   connect(night_PI_z2.CS, switch2.u3) annotation(
@@ -201,8 +199,6 @@ equation
     Line(points = {{361, 22}, {376, 22}}, color = {0, 0, 127}));
   connect(LO_limit.y, night_PI_z2.SP) annotation(
     Line(points = {{-5, 60}, {246, 60}, {246, 20}, {256, 20}}, color = {0, 0, 127}));
-  connect(sDp.oDp, PI_Pressure.PV) annotation(
-    Line(points = {{-30, -58}, {-126, -58}, {-126, -6}}, color = {0, 0, 127}));
   connect(sTz1.T, night_PI_z1.PV) annotation(
     Line(points = {{84, 86}, {-84, 86}, {-84, 8}, {-14, 8}}, color = {0, 0, 127}));
   connect(hours_switch.y[1], greaterThreshold.u) annotation(
@@ -239,8 +235,6 @@ equation
     Line(points = {{70, 116}, {78, 116}, {78, 36}, {114, 36}}, color = {0, 0, 127}));
   connect(sp_Tz.y[1], PI_z2.SP) annotation(
     Line(points = {{-159, 140}, {47.5, 140}, {47.5, 148}, {250, 148}}, color = {0, 0, 127}));
-  connect(Pressure_difference.y, PI_Pressure.SP) annotation(
-    Line(points = {{-206, 6}, {-126, 6}}, color = {0, 0, 127}));
   connect(realExpression1.y, switch3.u3) annotation(
     Line(points = {{356, 126}, {382, 126}}, color = {0, 0, 127}));
   connect(greaterThreshold.y, switch3.u2) annotation(
@@ -249,6 +243,12 @@ equation
     Line(points = {{328, 142}, {382, 142}}, color = {0, 0, 127}));
   connect(switch3.y, Psupz2.u) annotation(
     Line(points = {{406, 134}, {408, 134}, {408, 56}, {419, 56}}, color = {0, 0, 127}));
+  connect(Pressure_difference.y, PI_Pressure.SP) annotation(
+    Line(points = {{-206, 6}, {-126, 6}}, color = {0, 0, 127}));
+  connect(sDp.oDp, PI_Pressure.PV) annotation(
+    Line(points = {{-30, -58}, {-126, -58}, {-126, -6}}, color = {0, 0, 127}));
+  connect(PI_Pressure.CS, pump.cmd) annotation(
+    Line(points = {{-100, -1}, {-100, 0}, {-32, 0}, {-32, -22}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-480, 180}, {500, -100}})),
     experiment(StartTime = 0, StopTime = 864000, Tolerance = 1e-6, Interval = 86.4),
