@@ -5,7 +5,10 @@ model Plant_heater_with_control_2
   parameter Real hs = 8;
   parameter Real ms = 0;
   parameter Real ss = 0;
-  Real P_loss = Qheat.Q + Hsupz1.Q_flow + Hsupz2.Q_flow;
+  Real P_heaters = Qheat.Q + Hsupz1.Q_flow + Hsupz2.Q_flow;
+  Real P_ambient = Gloss1.G * (sTz1.T - pTa.T) + thermalConductor.G * (sTz2.T - pTa.T);
+  Real P_pump = pump.pwh_a.w * (pump.pwh_b.p - pump.pwh_a.p) / system.ro;
+  Real P_loss = P_heaters + P_ambient + P_pump;
   AES.ProcessComponents.Thermal.Liquid.Pressuriser pressuriser annotation(
     Placement(visible = true, transformation(origin = {-32, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ProcessComponents.Thermal.Liquid.Tube tubeh1(L = 50) annotation(
