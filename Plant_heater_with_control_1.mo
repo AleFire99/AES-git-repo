@@ -86,13 +86,13 @@ model Plant_heater_with_control_1
   Modelica.Blocks.Sources.CombiTimeTable Tamb(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, offset = {273.15}, smoothness = Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table = [0, 0; 4, -2; 8, 8; 12, 10; 15, 10; 18, 3; 20, 1; 22, 0; 24, 0], timeScale = 3600) annotation(
     Placement(visible = true, transformation(origin = {-224, 174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 1, CSmin = 0, K = 0.6849, Ti = 39.2699) annotation(
-    Placement(visible = true, transformation(origin = {-306, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-268, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Heater_T_Max(y = 40 + 273.15) annotation(
-    Placement(visible = true, transformation(origin = {-443, -34}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-335, -34}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression P_Loss(y = P_loss) annotation(
-    Placement(visible = true, transformation(origin = {-401, 138}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-337, 126}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator E_loss(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false) annotation(
-    Placement(visible = true, transformation(origin = {-300, 138}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-274, 126}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(pump.pwh_b, tubeh1.pwh_a) annotation(
     Line(points = {{-22, -4}, {-2, -4}}, color = {46, 52, 54}));
@@ -183,13 +183,13 @@ equation
   connect(sp_Tz.y[1], PI_z2.SP) annotation(
     Line(points = {{-157, 116}, {-65, 116}, {-65, 180}, {245, 180}, {245, 58}, {292, 58}}, color = {0, 0, 127}));
   connect(Heater_T_Max.y, PI_Heater.SP) annotation(
-    Line(points = {{-415.5, -34}, {-318, -34}}, color = {0, 0, 127}));
+    Line(points = {{-307.5, -34}, {-280, -34}}, color = {0, 0, 127}));
   connect(P_Loss.y, E_loss.u) annotation(
-    Line(points = {{-380.1, 138}, {-313.1, 138}}, color = {0, 0, 127}));
+    Line(points = {{-316, 126}, {-286, 126}}, color = {0, 0, 127}));
   connect(PI_Heater.CS, gain.u) annotation(
-    Line(points = {{-294, -40}, {-229, -40}}, color = {0, 0, 127}));
+    Line(points = {{-256, -40}, {-229, -40}}, color = {0, 0, 127}));
   connect(sTh.oT, PI_Heater.PV) annotation(
-    Line(points = {{-174, -4}, {-394, -4}, {-394, -44}, {-318, -44}}, color = {0, 0, 127}));
+    Line(points = {{-174, -4}, {-296, -4}, {-296, -44}, {-280, -44}}, color = {0, 0, 127}));
   connect(daisyChain_z1.CSo01[1], vh1.x) annotation(
     Line(points = {{60, 110}, {74, 110}, {74, 26}, {132, 26}}, color = {0, 0, 127}));
   connect(daisyChain_z1.CSo01[2], Psupz1.u) annotation(
