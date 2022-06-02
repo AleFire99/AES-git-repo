@@ -85,7 +85,7 @@ model Plant_heater_with_control_1
     Placement(visible = true, transformation(origin = {-224, -40}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable Tamb(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, offset = {273.15}, smoothness = Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table = [0, 0; 4, -2; 8, 8; 12, 10; 15, 10; 18, 3; 20, 1; 22, 0; 24, 0], timeScale = 3600) annotation(
     Placement(visible = true, transformation(origin = {-224, 174}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 1, CSmin = 0, K = 0.6849, Ti = 39.2699) annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 1, CSmin = 0, K = 8.2877, Ti = 1.1446 * 10 ^ 3) annotation(
     Placement(visible = true, transformation(origin = {-268, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Heater_T_Max(y = 40 + 273.15) annotation(
     Placement(visible = true, transformation(origin = {-335, -34}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
@@ -93,6 +93,10 @@ model Plant_heater_with_control_1
     Placement(visible = true, transformation(origin = {-337, 126}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator E_loss(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false) annotation(
     Placement(visible = true, transformation(origin = {-274, 126}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.Integrator w_pump_integrator(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false) annotation(
+    Placement(visible = true, transformation(origin = {-274, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression w_pump(y = pump.pwh_a.w) annotation(
+    Placement(visible = true, transformation(origin = {-337, -110}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
 equation
   connect(pump.pwh_b, tubeh1.pwh_a) annotation(
     Line(points = {{-22, -4}, {-2, -4}}, color = {46, 52, 54}));
@@ -196,6 +200,8 @@ equation
     Line(points = {{60, 110}, {74, 110}, {74, 40}, {113, 40}}, color = {0, 0, 127}));
   connect(Tamb.y[1], pTa.T) annotation(
     Line(points = {{-212, 174}, {-18, 174}, {-18, 146}, {-14, 146}}, color = {0, 0, 127}));
+  connect(w_pump.y, w_pump_integrator.u) annotation(
+    Line(points = {{-316.1, -110}, {-286.1, -110}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-500, -200}, {500, 200}})),
     experiment(StartTime = 0, StopTime = 864000, Tolerance = 1e-6, Interval = 86.4),

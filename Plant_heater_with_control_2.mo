@@ -83,7 +83,7 @@ model Plant_heater_with_control_2
     Placement(visible = true, transformation(origin = {-260, -40}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable Tamb(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, offset = {273.15}, smoothness = Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table = [0, 0; 4, -2; 8, 8; 12, 10; 15, 10; 18, 3; 20, 1; 22, 0; 24, 0], timeScale = 3600) annotation(
     Placement(visible = true, transformation(origin = {-196, 158}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 1, CSmin = 0, K = 0.0047, Ti = 39.2699) annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 1, CSmin = 0, K = 8.2877, Ti = 1.1446 * 10 ^ 3) annotation(
     Placement(visible = true, transformation(origin = {-288, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Heater_T_Max(y = 45 + 273.15) annotation(
     Placement(visible = true, transformation(origin = {-365, -34}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
@@ -91,13 +91,13 @@ model Plant_heater_with_control_2
     Placement(visible = true, transformation(origin = {-355, 110}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator E_loss(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false) annotation(
     Placement(visible = true, transformation(origin = {-278, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic night_PI_z2(CSmax = 10, CSmin = 0, K = 0.07692, Ti = 100) annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic night_PI_z2(CSmax = 1, CSmin = 0, K = 0.3846, Ti = 76.92) annotation(
     Placement(visible = true, transformation(origin = {268, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression LO_limit(y = 5 + 273.15) annotation(
     Placement(visible = true, transformation(origin = {-16, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {350, 22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic night_PI_z1(CSmax = 1, CSmin = 0, K = 0.07692, Ti = 100) annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic night_PI_z1(CSmax = 1, CSmin = 0, K = 0.07692, Ti = 76.92) annotation(
     Placement(visible = true, transformation(origin = {-2, 12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable hours_switch(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, smoothness = Modelica.Blocks.Types.Smoothness.ConstantSegments, table = [0, 0; 8, 1; 22, 0; 24, 0], tableOnFile = false, timeScale = 3600)  annotation(
     Placement(visible = true, transformation(origin = {-94, 176}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
