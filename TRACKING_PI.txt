@@ -1,0 +1,11 @@
+MAIL LEVA
+
+Dovete usare il tracking, non l'override:
+1. i controllori C1 e C2 mandano i loro CS a uno switch con ingresso locico (c'è nalla Modelica Standard Library) che 
+decide quale dei due va al processo;
+
+2. sia C1 che C2 ricevono sul track reference (TR) il controllo che va al processo (uscita dello switch);
+
+3.quando l'ingresso logico dello switch dice che il processo è regolato da C1 l'ingresso track switch (TS) di C2 è vero 
+in modo che la sua uscita CS insegua quella di C1...
+... e ovviamente viceversa.
