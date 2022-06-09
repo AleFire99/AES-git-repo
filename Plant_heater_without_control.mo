@@ -42,9 +42,9 @@ model Plant_heater_without_control
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor Gloss1(G = 80) annotation(
     Placement(visible = true, transformation(origin = {-26, 118}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Hsupz1 annotation(
-    Placement(visible = true, transformation(origin = {-66, 68}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-64, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Gain Psupz1(k = 500) annotation(
-    Placement(visible = true, transformation(origin = {-66, 44}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-65, 47}, extent = {{-7, -7}, {7, 7}}, rotation = 90)));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature pTa annotation(
     Placement(visible = true, transformation(origin = {-190, 148}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ProcessComponents.Thermal.Liquid.VectorHPtoHP_conductor convz1 annotation(
@@ -60,13 +60,15 @@ model Plant_heater_without_control
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G = 80) annotation(
     Placement(visible = true, transformation(origin = {210, 118}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Math.Gain Psupz2(k = 500) annotation(
-    Placement(visible = true, transformation(origin = {170, 44}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {171, 45}, extent = {{-7, -7}, {7, 7}}, rotation = 90)));
   inner AES.ProcessComponents.Thermal.System_settings.System_liquid system annotation(
     Placement(visible = true, transformation(origin = {-370, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable Tamb(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, offset = {273.15}, smoothness = Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table = [0, 0; 4, -2; 8, 8; 12, 10; 15, 10; 18, 3; 20, 1; 22, 0; 24, 0], timeScale = 3600) annotation(
     Placement(visible = true, transformation(origin = {-312, 148}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable sp_Tzones(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, offset = {273.15}, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = [0, 7; 7, 7; 8, 20; 17, 20; 20, 14; 22, 10; 24, 10], timeScale = 3600) annotation(
     Placement(visible = true, transformation(origin = {-312, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain(k = 10000) annotation(
+    Placement(visible = true, transformation(origin = {-399, -31}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
 equation
   connect(pump.pwh_b, tubeh1.pwh_a) annotation(
     Line(points = {{-230, -2}, {-190, -2}}, color = {46, 52, 54}));
@@ -107,9 +109,7 @@ equation
   connect(Cz1.port, Gloss1.port_b) annotation(
     Line(points = {{-16, 88}, {-26, 88}, {-26, 108}}, color = {191, 0, 0}));
   connect(Psupz1.y, Hsupz1.Q_flow) annotation(
-    Line(points = {{-66, 48.4}, {-66, 58.4}}, color = {0, 0, 127}));
-  connect(Cz1.port, Hsupz1.port) annotation(
-    Line(points = {{-16, 88}, {-66, 88}, {-66, 78}}, color = {191, 0, 0}));
+    Line(points = {{-65, 55}, {-65, 53.4}, {-64, 53.4}, {-64, 64}}, color = {0, 0, 127}));
   connect(pTa.port, Gloss1.port_a) annotation(
     Line(points = {{-180, 148}, {-26, 148}, {-26, 128}}, color = {191, 0, 0}));
   connect(Cz1.port, convz1.HP) annotation(
@@ -119,7 +119,7 @@ equation
   connect(sTz1.port, Cz1.port) annotation(
     Line(points = {{-88, 88}, {-16, 88}}, color = {191, 0, 0}));
   connect(Psupz2.y, Hsupz2.Q_flow) annotation(
-    Line(points = {{170, 48}, {170, 60}}, color = {0, 0, 127}));
+    Line(points = {{171, 53}, {171, 55.5}, {170, 55.5}, {170, 60}}, color = {0, 0, 127}));
   connect(h2.surf, convz2.vectorHP) annotation(
     Line(points = {{210, 54}, {210, 66}}, color = {144, 5, 5}));
   connect(convz2.HP, Cz2.port) annotation(
@@ -134,6 +134,10 @@ equation
     Line(points = {{210, 108}, {210, 90}, {238, 90}}, color = {191, 0, 0}));
   connect(Tamb.y[1], pTa.T) annotation(
     Line(points = {{-301, 148}, {-202, 148}}, color = {0, 0, 127}));
+  connect(Hsupz1.port, Cz1.port) annotation(
+    Line(points = {{-64, 84}, {-64, 88}, {-16, 88}}, color = {191, 0, 0}));
+  connect(gain.y, Qheat.Q) annotation(
+    Line(points = {{-389, -31}, {-389, -30}, {-374, -30}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-500, -200}, {500, 200}})),
     experiment(StartTime = 0, StopTime = 864000, Tolerance = 1e-6, Interval = 86.4),
