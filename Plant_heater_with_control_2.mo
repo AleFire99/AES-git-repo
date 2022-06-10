@@ -70,10 +70,8 @@ model Plant_heater_with_control_2
     Placement(visible = true, transformation(origin = {414, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = 10000) annotation(
     Placement(visible = true, transformation(origin = {-250, -106}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 1, CSmin = 0, K = 8.2877, Ti = 1.1446 * 10 ^ 3) annotation(
-    Placement(visible = true, transformation(origin = {-280, -106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Heater_T_Max(y = 45 + 273.15) annotation(
-    Placement(visible = true, transformation(origin = {-351, -100}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-389, -98}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {380, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable hours_switch(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, smoothness = Modelica.Blocks.Types.Smoothness.ConstantSegments, table = [0, 0; 7.5, 1; 22, 0; 24, 0], tableOnFile = false, timeScale = 3600) annotation(
@@ -81,7 +79,7 @@ model Plant_heater_with_control_2
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold = 0.5) annotation(
     Placement(visible = true, transformation(origin = {-158, 234}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Pressure(CSmax = 1, CSmin = 0, K = 0.001, Ti = 500) annotation(
-    Placement(visible = true, transformation(origin = {-105, -63}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-99, -63}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
   Modelica.Blocks.Logical.Not not1 annotation(
     Placement(visible = true, transformation(origin = {-72, 216}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
   AES.ControlBlocks.AnalogueControllers.PI_awfb_full pI_z2D(CSmax = 2, CSmin = 0, K = 0.3846, Ti = 76.92, hasTracking = true) annotation(
@@ -112,6 +110,8 @@ model Plant_heater_with_control_2
     Placement(visible = true, transformation(origin = {-345, 106}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Not not2 annotation(
     Placement(visible = true, transformation(origin = {292, 208}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic pI_awfb_basic(CSmax = 1, CSmin = 0, K = 8.2877, Ti = 1.145 * 10 ^ 3) annotation(
+    Placement(visible = true, transformation(origin = {-307, -105}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
 equation
   connect(pump.pwh_b, tubeh1.pwh_a) annotation(
     Line(points = {{-12, -92}, {14, -92}}, color = {46, 52, 54}));
@@ -173,12 +173,6 @@ equation
     Line(points = {{524, 120}, {524, 100}, {592, 100}}, color = {191, 0, 0}));
   connect(gain.y, Qheat.Q) annotation(
     Line(points = {{-246, -106}, {-216, -106}}, color = {0, 0, 127}));
-  connect(Heater_T_Max.y, PI_Heater.SP) annotation(
-    Line(points = {{-323.5, -100}, {-292, -100}}, color = {0, 0, 127}));
-  connect(PI_Heater.CS, gain.u) annotation(
-    Line(points = {{-268, -106}, {-255, -106}}, color = {0, 0, 127}));
-  connect(sTh.oT, PI_Heater.PV) annotation(
-    Line(points = {{-174, -92}, {-314, -92}, {-314, -110}, {-292, -110}}, color = {0, 0, 127}));
   connect(hours_switch.y[1], greaterThreshold.u) annotation(
     Line(points = {{-221, 234}, {-168, 234}}, color = {0, 0, 127}));
   connect(greaterThreshold.y, switch2.u2) annotation(
@@ -186,11 +180,11 @@ equation
   connect(Psupz2.y, Hsupz2.Q_flow) annotation(
     Line(points = {{502.4, 54}, {510.4, 54}, {510.4, 66}}, color = {0, 0, 127}));
   connect(Pressure_difference.y, PI_Pressure.SP) annotation(
-    Line(points = {{-313.5, -56}, {-117.5, -56}}, color = {0, 0, 127}));
+    Line(points = {{-313.5, -56}, {-112, -56}}, color = {0, 0, 127}));
   connect(sDp.oDp, PI_Pressure.PV) annotation(
-    Line(points = {{-22, -120}, {-118, -120}, {-118, -68}}, color = {0, 0, 127}));
+    Line(points = {{-22, -120}, {-112, -120}, {-112, -68}}, color = {0, 0, 127}));
   connect(PI_Pressure.CS, pump.cmd) annotation(
-    Line(points = {{-91.8, -63}, {-91.8, -62}, {-23.8, -62}, {-23.8, -84}}, color = {0, 0, 127}));
+    Line(points = {{-86, -63}, {-86, -62}, {-23.8, -62}, {-23.8, -84}}, color = {0, 0, 127}));
   connect(greaterThreshold.y, not1.u) annotation(
     Line(points = {{-149.2, 234}, {-72, 234}, {-72, 223}}, color = {255, 0, 255}));
   connect(switch2.y, daisyChain_z2.CSi01) annotation(
@@ -259,6 +253,12 @@ equation
     Line(points = {{392, 74}, {396, 74}, {396, -48}, {268, -48}, {268, -2}, {316, -2}}, color = {0, 0, 127}));
   connect(switch2.y, pI_z2D.TR) annotation(
     Line(points = {{392, 74}, {396, 74}, {396, -48}, {268, -48}, {268, 128}, {312, 128}}, color = {0, 0, 127}));
+  connect(pI_awfb_basic.CS, gain.u) annotation(
+    Line(points = {{-294, -104}, {-254, -104}, {-254, -106}}, color = {0, 0, 127}));
+  connect(sTh.oT, pI_awfb_basic.PV) annotation(
+    Line(points = {{-174, -92}, {-330, -92}, {-330, -110}, {-320, -110}}, color = {0, 0, 127}));
+  connect(Heater_T_Max.y, pI_awfb_basic.SP) annotation(
+    Line(points = {{-362, -98}, {-320, -98}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-480, 180}, {500, -100}})),
     experiment(StartTime = 0, StopTime = 864000, Tolerance = 1e-6, Interval = 86.4),
