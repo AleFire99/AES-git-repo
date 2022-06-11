@@ -5,11 +5,15 @@ model Plant_heater_with_control_2
   parameter Real hs = 8;
   parameter Real ms = 0;
   parameter Real ss = 0;
-  Real P_heaters = Qheat.Q + Hsupz1.Q_flow + Hsupz2.Q_flow;
-  Real P_ambient = Gloss1.G * (sTz1.T - pTa.T) + thermalConductor.G * (sTz2.T - pTa.T);
+  Real P_heater = Qheat.Q;
+  Real P_zones = Hsupz1.Q_flow + Hsupz2.Q_flow;
+  Real P_env = Gloss1.G * (sTz1.T - pTa.T) + thermalConductor.G * (sTz2.T - pTa.T);
   Real P_pump = pump.pwh_a.w * (pump.pwh_b.p - pump.pwh_a.p) / system.ro;
-  Real P_loss = P_heaters + P_ambient + P_pump;
-  Real P_average = E_loss.y/time;
+  Real P_tot = P_heater + P_zones + P_pump;
+  Real P_average = E_tot.y/time;
+  
+  Real eta = P_tot/(P_tot+P_env);
+  
   AES.ProcessComponents.Thermal.Liquid.Pressuriser pressuriser annotation(
     Placement(visible = true, transformation(origin = {-24, -148}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ProcessComponents.Thermal.Liquid.Tube tubeh1(L = 50) annotation(
@@ -104,9 +108,9 @@ model Plant_heater_with_control_2
     Placement(visible = true, transformation(origin = {-186, 154}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner AES.ProcessComponents.Thermal.System_settings.System_liquid system(ro(displayUnit = "kg/m3")) annotation(
     Placement(visible = true, transformation(origin = {-216, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator E_loss(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false) annotation(
+  Modelica.Blocks.Continuous.Integrator E_tot(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false) annotation(
     Placement(visible = true, transformation(origin = {-268, 106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression P_Loss(y = P_loss) annotation(
+  Modelica.Blocks.Sources.RealExpression P_Tot(y = P_tot) annotation(
     Placement(visible = true, transformation(origin = {-345, 106}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Not not2 annotation(
     Placement(visible = true, transformation(origin = {292, 208}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
@@ -237,7 +241,7 @@ equation
     Line(points = {{-137, 138}, {-119.5, 138}, {-119.5, 126}, {-50, 126}}, color = {0, 0, 127}));
   connect(Tamb.y[1], pTa.T) annotation(
     Line(points = {{-175, 154}, {-4, 154}}, color = {0, 0, 127}));
-  connect(P_Loss.y, E_loss.u) annotation(
+  connect(P_Tot.y, E_tot.u) annotation(
     Line(points = {{-324.1, 106}, {-280.1, 106}}, color = {0, 0, 127}));
   connect(sTz1.T, pI_z1N.PV) annotation(
     Line(points = {{84, 86}, {-134, 86}, {-134, 18}, {-86, 18}}, color = {0, 0, 127}));

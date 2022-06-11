@@ -7,14 +7,13 @@ model Plant_heater_with_control_1
   parameter Real ss = 0;
   Real P_heater = Qheat.Q;
   Real P_zones = Hsupz1.Q_flow + Hsupz2.Q_flow;
-  Real P_ambient = Gloss1.G * (sTz1.T - pTa.T) + thermalConductor.G * (sTz2.T - pTa.T);
+  Real P_env = Gloss1.G * (sTz1.T - pTa.T) + thermalConductor.G * (sTz2.T - pTa.T);
   Real P_pump = pump.pwh_a.w * (pump.pwh_b.p - pump.pwh_a.p) / system.ro;
   Real P_tot = P_heater + P_pump + P_zones;
   Real P_average = E_tot.y/time;
+ 
   
-  Real eta_avg = eta_.y/time;
-  
-  Real eta = P_tot/(P_tot+P_ambient);
+  Real eta = P_tot/(P_tot+P_env);
   
   AES.ProcessComponents.Thermal.Liquid.Pressuriser pressuriser annotation(
     Placement(visible = true, transformation(origin = {-64, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
