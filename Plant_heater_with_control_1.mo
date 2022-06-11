@@ -12,9 +12,10 @@ model Plant_heater_with_control_1
   Real P_tot = P_heater + P_pump + P_zones;
   Real P_average = E_tot.y/time;
   
-  Real eta_avg = eta_.y/time;
+ 
   
   Real eta = P_tot/(P_tot+P_ambient);
+  Real eta_avg = eta/time;
   
   AES.ProcessComponents.Thermal.Liquid.Pressuriser pressuriser annotation(
     Placement(visible = true, transformation(origin = {-64, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
