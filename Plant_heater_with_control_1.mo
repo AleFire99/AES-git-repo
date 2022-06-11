@@ -5,11 +5,17 @@ model Plant_heater_with_control_1
   parameter Real hs = 8;
   parameter Real ms = 0;
   parameter Real ss = 0;
-  Real P_heaters = Qheat.Q + Hsupz1.Q_flow + Hsupz2.Q_flow;
+  Real P_heater = Qheat.Q;
+  Real P_zones = Hsupz1.Q_flow + Hsupz2.Q_flow;
   Real P_ambient = Gloss1.G * (sTz1.T - pTa.T) + thermalConductor.G * (sTz2.T - pTa.T);
   Real P_pump = pump.pwh_a.w * (pump.pwh_b.p - pump.pwh_a.p) / system.ro;
-  Real P_loss = P_heaters + P_ambient + P_pump;
-  Real P_average = E_loss.y/time;
+  Real P_tot = P_heater + P_pump + P_zones;
+  Real P_average = E_tot.y/time;
+  
+  Real eta_avg = eta_.y/time;
+  
+  Real eta = P_tot/(P_tot+P_ambient);
+  
   AES.ProcessComponents.Thermal.Liquid.Pressuriser pressuriser annotation(
     Placement(visible = true, transformation(origin = {-64, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ProcessComponents.Thermal.Liquid.Tube tubeh1(L = 50) annotation(
@@ -90,14 +96,10 @@ model Plant_heater_with_control_1
     Placement(visible = true, transformation(origin = {-224, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Heater_T_Max(y = 40 + 273.15) annotation(
     Placement(visible = true, transformation(origin = {-291, -34}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression P_Loss(y = P_loss) annotation(
+  Modelica.Blocks.Sources.RealExpression P_tot_loss(y = P_tot) annotation(
     Placement(visible = true, transformation(origin = {-275, 114}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator E_loss(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false) annotation(
+  Modelica.Blocks.Continuous.Integrator E_tot(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false) annotation(
     Placement(visible = true, transformation(origin = {-212, 114}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator w_pump_integrator(initType = Modelica.Blocks.Types.Init.NoInit, use_reset = false) annotation(
-    Placement(visible = true, transformation(origin = {-274, -124}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression w_pump(y = pump.pwh_a.w) annotation(
-    Placement(visible = true, transformation(origin = {-337, -124}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
 equation
   connect(pump.pwh_b, tubeh1.pwh_a) annotation(
     Line(points = {{-22, -4}, {-2, -4}}, color = {46, 52, 54}));
@@ -175,7 +177,7 @@ equation
     Line(points = {{-157, 116}, {-65, 116}, {-65, 180}, {245, 180}, {245, 58}, {286, 58}}, color = {0, 0, 127}));
   connect(Heater_T_Max.y, PI_Heater.SP) annotation(
     Line(points = {{-263.5, -34}, {-236, -34}}, color = {0, 0, 127}));
-  connect(P_Loss.y, E_loss.u) annotation(
+  connect(P_tot_loss.y, E_tot.u) annotation(
     Line(points = {{-254.1, 114}, {-224.1, 114}}, color = {0, 0, 127}));
   connect(sTh.oT, PI_Heater.PV) annotation(
     Line(points = {{-130, -4}, {-252, -4}, {-252, -44}, {-236, -44}}, color = {0, 0, 127}));
@@ -185,8 +187,6 @@ equation
     Line(points = {{67, 111}, {74, 111}, {74, 42}, {98, 42}}, color = {0, 0, 127}));
   connect(Tamb.y[1], pTa.T) annotation(
     Line(points = {{-91, 146}, {-14, 146}}, color = {0, 0, 127}));
-  connect(w_pump.y, w_pump_integrator.u) annotation(
-    Line(points = {{-316.1, -124}, {-286.1, -124}}, color = {0, 0, 127}));
   connect(PI_z1.CS, daisyChain_z1.CSi01) annotation(
     Line(points = {{6, 110}, {30, 110}}, color = {0, 0, 127}));
   connect(daisyChain_z2.CSo01[1], vh2.x) annotation(
