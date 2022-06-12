@@ -79,9 +79,9 @@ model Plant_heater_with_control_1
     Placement(visible = true, transformation(origin = {6, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Pressure_difference(y = 2.027 * 10 ^ 5) annotation(
     Placement(visible = true, transformation(origin = {-219, 60}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z1(CSmax = 1, CSmin = 0, K = 0.0317, Ti = 76.9231) annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z1(CSmax = 1, CSmin = 0, K = 0.3174, Ti = 76.9231) annotation(
     Placement(visible = true, transformation(origin = {-6, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z2(CSmax = 1, CSmin = 0, K = 0.1587, Ti = 76.92) annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_z2(CSmax = 1, CSmin = 0, K = 1.5868, Ti = 76.92) annotation(
     Placement(visible = true, transformation(origin = {298, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AES.ControlBlocks.ActuationSchemes.DaisyChain_uniform daisyChain_z1 annotation(
     Placement(visible = true, transformation(origin = {49, 111}, extent = {{-15, -13}, {15, 13}}, rotation = 0)));
