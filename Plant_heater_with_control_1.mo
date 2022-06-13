@@ -91,7 +91,7 @@ model Plant_heater_with_control_1
     Placement(visible = true, transformation(origin = {-177, -41}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable Tamb(extrapolation = Modelica.Blocks.Types.Extrapolation.Periodic, offset = {273.15}, smoothness = Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table = [0, 0; 4, -2; 8, 8; 12, 10; 15, 10; 18, 3; 20, 1; 22, 0; 24, 0], timeScale = 3600) annotation(
     Placement(visible = true, transformation(origin = {-102, 146}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 1, CSmin = 0, K = 8.2877, Ti = 1.1446 * 10 ^ 3) annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic PI_Heater(CSmax = 1, CSmin = 0, K = 8.2877, Ti = 4.7517 * 10 ^ 3) annotation(
     Placement(visible = true, transformation(origin = {-224, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression Heater_T_Max(y = 40 + 273.15) annotation(
     Placement(visible = true, transformation(origin = {-291, -34}, extent = {{-25, -18}, {25, 18}}, rotation = 0)));

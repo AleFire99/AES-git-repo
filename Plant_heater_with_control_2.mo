@@ -114,7 +114,7 @@ model Plant_heater_with_control_2
     Placement(visible = true, transformation(origin = {-345, 106}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Not not2 annotation(
     Placement(visible = true, transformation(origin = {292, 208}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic pI_awfb_basic(CSmax = 1, CSmin = 0, K = 8.2877, Ti = 1.145 * 10 ^ 3) annotation(
+  AES.ControlBlocks.AnalogueControllers.PI_awfb_basic pI_awfb_basic(CSmax = 1, CSmin = 0, K = 8.2877, Ti = 4.7517 * 10 ^ 3) annotation(
     Placement(visible = true, transformation(origin = {-307, -105}, extent = {{-11, -11}, {11, 11}}, rotation = 0)));
 equation
   connect(pump.pwh_b, tubeh1.pwh_a) annotation(
